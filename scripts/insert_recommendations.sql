@@ -1,0 +1,66 @@
+INSERT INTO recommendations (uv, skin_tone, rec_sunscreen, rec_clothing) VALUES
+(1, 1, 0.5, 'Light clothing, hat optional'),
+(1, 2, 0.5, 'Light clothing, hat optional'),
+(1, 3, 0.5, 'Light clothing'),
+(1, 4, 0.5, 'Light clothing'),
+(1, 5, 0.5, 'Light clothing'),
+
+(2, 1, 0.5, 'Hat, sunglasses, long sleeves'),
+(2, 2, 0.5, 'Hat, sunglasses, long sleeves'),
+(2, 3, 0.5, 'Hat, sunglasses'),
+(2, 4, 0.5, 'Hat, sunglasses'),
+(2, 5, 0.5, 'Hat optional, sunglasses'),
+
+(3, 1, 1.0, 'Hat, sunglasses, long sleeves'),
+(3, 2, 1.0, 'Hat, sunglasses, long sleeves'),
+(3, 3, 0.5, 'Hat, sunglasses, long sleeves'),
+(3, 4, 0.5, 'Hat, sunglasses'),
+(3, 5, 0.5, 'Hat optional, sunglasses'),
+
+(4, 1, 1.0, 'Long sleeves, hat, sunglasses'),
+(4, 2, 1.0, 'Long sleeves, hat, sunglasses'),
+(4, 3, 1.0, 'Long sleeves, hat, sunglasses'),
+(4, 4, 0.5, 'Hat, sunglasses'),
+(4, 5, 0.5, 'Hat optional, sunglasses'),
+
+(5, 1, 1.5, 'Wide-brim hat, UV-protective clothing'),
+(5, 2, 1.5, 'Wide-brim hat, UV-protective clothing'),
+(5, 3, 1.0, 'Hat, long sleeves, sunglasses'),
+(5, 4, 0.5, 'Hat, sunglasses'),
+(5, 5, 0.5, 'Hat optional, sunglasses'),
+
+(6, 1, 2.0, 'Wide-brim hat, UV-protective clothing, sunglasses'),
+(6, 2, 1.5, 'Wide-brim hat, UV-protective clothing, sunglasses'),
+(6, 3, 1.0, 'Hat, long sleeves, sunglasses'),
+(6, 4, 0.5, 'Hat, sunglasses'),
+(6, 5, 0.5, 'Hat optional, sunglasses'),
+
+(7, 1, 2.0, 'Long sleeves, wide-brim hat, sunglasses'),
+(7, 2, 2.0, 'Long sleeves, wide-brim hat, sunglasses'),
+(7, 3, 1.5, 'Long sleeves, hat, sunglasses'),
+(7, 4, 1.0, 'Hat, sunglasses'),
+(7, 5, 0.5, 'Hat, sunglasses'),
+
+(8, 1, 2.5, 'Full-coverage clothing, UV-protective gear'),
+(8, 2, 2.5, 'Full-coverage clothing, UV-protective gear'),
+(8, 3, 2.0, 'Long sleeves, hat, sunglasses'),
+(8, 4, 1.5, 'Hat, sunglasses'),
+(8, 5, 1.0, 'Hat, sunglasses'),
+
+(9, 1, 3.0, 'Full-coverage clothing, UV-protective gear'),
+(9, 2, 2.5, 'Full-coverage clothing, UV-protective gear'),
+(9, 3, 2.0, 'Long sleeves, hat, sunglasses'),
+(9, 4, 1.5, 'Hat, sunglasses'),
+(9, 5, 1.0, 'Hat, sunglasses'),
+
+(10, 1, 3.5, 'Full-coverage, avoid sun exposure'),
+(10, 2, 3.0, 'Full-coverage, avoid sun exposure'),
+(10, 3, 2.5, 'Long sleeves, hat, sunglasses'),
+(10, 4, 2.0, 'Hat, sunglasses'),
+(10, 5, 1.5, 'Hat, sunglasses'),
+
+(11, 1, 4.0, 'Stay indoors, full-coverage, UV clothing'),
+(11, 2, 3.5, 'Stay indoors, full-coverage, UV clothing'),
+(11, 3, 3.0, 'Long sleeves, hat, sunglasses, avoid sun'),
+(11, 4, 2.5, 'Hat, sunglasses, avoid prolonged sun'),
+(11, 5, 2.0, 'Hat, sunglasses, limit sun exposure');
