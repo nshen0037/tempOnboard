@@ -1,6 +1,4 @@
-# FIT5120-TE12-Onboarding
-
-## Vue 3 + Vite Project
+# fit
 
 This template should help get you started developing with Vue 3 in Vite.
 
