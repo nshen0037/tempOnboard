@@ -1,38 +1,31 @@
 <script setup lang="ts">
-import SunProtector from './components/SunProtector.vue'
+// 移除NavMenu导入
 </script>
 
 <template>
-  <div>
-    <SunProtector />
+  <div class="app">
+    <!-- 移除NavMenu组件，只保留路由视图 -->
+    <router-view />
   </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  line-height: 1.6;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.app {
+  min-height: 100vh;
+  width: 100%;
 }
 </style>
