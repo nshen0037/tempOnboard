@@ -102,8 +102,13 @@ const getCurrentUVIndex = (): number => {
 }
 
 const fetchRecommendation = async () => {
+  const store = useStore()
   if (!selectedSkinTone.value) {
     error.value = 'Please select a skin tone'
+    return
+  }
+  if (!store.postcode) {
+    error.value = 'Please set your postcode in the UV Indicator page first'
     return
   }
 
@@ -114,7 +119,6 @@ const fetchRecommendation = async () => {
     // 获取皮肤类型数值和当前UV指数
     const skinType = skinTypeToNumber(selectedSkinTone.value)
     const uvIndex = getCurrentUVIndex()
-    const store = useStore()
 
     // 调用API获取推荐
     const response = await getRecommendation({
@@ -122,12 +126,10 @@ const fetchRecommendation = async () => {
       skinTone: skinType,
     })
 
-    console.log(response.data.recommendation)
-
     // 处理响应
     if (response) {
       recommendation.value =
-        response.data.recommendation ||
+        response.recommendation ||
         `Based on your ${selectedSkinTone.value} skin and the current UV index of ${uvIndex},
         we recommend using SPF ${skinType <= 2 ? '50+' : skinType <= 4 ? '30+' : '15+'} sunscreen
         and wearing protective clothing when outdoors.`
