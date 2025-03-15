@@ -23,7 +23,7 @@
 
     <div class="content">
       <div class="reminder-section">
-        <h2>Set Reminders</h2>
+        <h2><i class="fas fa-bell icon-title"></i> Set Reminders</h2>
 
         <div class="sub-description">
           <p>
@@ -362,6 +362,12 @@ h2 {
   color: #1565c0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
   position: relative;
+}
+
+.icon-title {
+  color: #ff9800;
+  margin-right: 10px;
+  filter: drop-shadow(0 0 3px rgba(255, 152, 0, 0.4));
 }
 
 .sub-description {
