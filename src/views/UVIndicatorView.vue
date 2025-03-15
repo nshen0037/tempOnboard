@@ -25,12 +25,20 @@
       <div class="recommendation-section">
         <h2><i class="fas fa-sun icon-title"></i> UV Indicator</h2>
         <div class="sub-description">
+<<<<<<< HEAD
           <p>
             💡 Enter your postcode to get UV index data for different times of the day in your area
           </p>
         </div>
 
         <div class="main-content-box">
+=======
+          <p>💡 Enter your postcode to get UV index data for different times of the day in your area</p>
+        </div>
+
+        <div class="main-content-box">
+          <!-- 用户输入邮政编码 -->
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
           <div class="postcode-section">
             <label for="postcode">Post code:</label>
             <div class="input-container">
@@ -45,15 +53,23 @@
               />
               <button @click="fetchUVData" class="go-btn" :disabled="postcodeError">Go</button>
             </div>
+<<<<<<< HEAD
             <p v-if="postcodeError" class="error-text">
               Postcode must start with 3 and be 4 digits
             </p>
           </div>
 
+=======
+            <p v-if="postcodeError" class="error-text">Postcode must start with 3 and be 4 digits</p>
+          </div>
+
+          <!-- 加载状态 -->
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
           <div v-if="loading" class="loading">
             <p><i class="fas fa-spinner fa-spin"></i> Loading UV data...</p>
           </div>
 
+<<<<<<< HEAD
           <div v-else-if="uvData" class="uv-display">
             <div class="uv-card">
               <h3><i class="fas fa-map-marker-alt"></i> {{ uvData.location }}</h3>
@@ -85,17 +101,33 @@
             </div>
           </div>
 
+=======
+          <!-- UV 数据展示 -->
+          <div v-if="uvData" class="uv-display">
+            <div class="uv-card">
+              <h3><i class="fas fa-map-marker-alt"></i> Current Postcode: {{ uvData.postcode }}</h3>
+              <canvas ref="uvChart"></canvas>
+            </div>
+          </div>
+
+
+          <!-- 报错信息 -->
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
           <div v-else-if="error" class="error-message">
             <p><i class="fas fa-exclamation-triangle"></i> {{ error }}</p>
           </div>
         </div>
       </div>
+<<<<<<< HEAD
 
       <NextPageArrow nextRoute="/recommendation" nextPageName="Recommendation" />
+=======
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
     </div>
   </div>
 </template>
 
+<<<<<<< HEAD
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import * as apiMock from '../api'
@@ -111,15 +143,103 @@ interface UVData {
 }
 
 const postcode = ref('')
+=======
+
+<script setup lang="ts">
+import { ref, computed, nextTick } from 'vue'
+import { getUVByPostcode } from '../api'
+import Chart from 'chart.js/auto'
+
+// UV 数据接口
+interface UVEntry {
+  timestamp: number
+  time: string
+  uvIndex: number
+}
+
+interface UVData {
+  location: string
+  postcode: string
+  data: UVEntry[]
+}
+
+// 响应式变量
+const postcode = ref('3000')
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
 const postcodeError = ref(false)
 const uvData = ref<UVData | null>(null)
 const loading = ref(false)
 const error = ref('')
+<<<<<<< HEAD
 
 const uvLevelClass = computed(() => {
   if (!uvData.value) return ''
 
   const index = uvData.value.index
+=======
+const chartInstance = ref<Chart | null>(null)
+const uvChart = ref<HTMLCanvasElement | null>(null)
+
+// 计算最新 UV 指数
+const latestUVIndex = computed(() => {
+  return uvData.value?.data?.length ? uvData.value.data[0].uvIndex : 0
+})
+
+// 计算最新 UV 时间
+const latestUVTime = computed(() => {
+  if (!uvData.value?.data?.length) {
+    return 'N/A'
+  }
+  return new Date(uvData.value.data[0].time).toLocaleString()
+})
+
+// 验证邮政编码
+const validatePostcode = () => {
+  postcode.value = postcode.value.replace(/\D/g, '').slice(0, 4)
+  postcodeError.value = !(postcode.value.length === 4 && postcode.value.startsWith('3'))
+}
+
+// 获取 UV 数据
+const fetchUVData = async () => {
+  loading.value = true
+  error.value = ''
+
+  try {
+    console.log('📡 Fetching UV data for postcode:', postcode.value)
+    const response = await getUVByPostcode({ postcode: postcode.value })
+    console.log('📊 API Response:', response.data)
+
+    if (Array.isArray(response.data)) {
+      uvData.value = {
+        location: 'Unknown',
+        postcode: postcode.value,
+        data: response.data
+      }
+    } else if (response.data && typeof response.data === 'object' && Array.isArray(response.data.data)) {
+      uvData.value = response.data
+    } else {
+      console.error('❌ Unexpected API data format:', response.data)
+      throw new Error('Invalid data format')
+    }
+
+    console.log('✅ Updated uvData:', uvData.value)
+
+    await nextTick()
+    setTimeout(generateChart, 100)  // 延迟调用，确保 DOM 更新完成
+  } catch (err) {
+    error.value = 'Failed to fetch UV data. Please try again.'
+    console.error('❌ Error fetching UV data:', err)
+    uvData.value = null
+  } finally {
+    loading.value = false
+  }
+}
+
+
+
+const uvLevelClass = computed(() => {
+  const index = latestUVIndex.value
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
   if (index <= 2) return 'low'
   if (index <= 5) return 'moderate'
   if (index <= 7) return 'high'
@@ -127,6 +247,7 @@ const uvLevelClass = computed(() => {
   return 'extreme'
 })
 
+<<<<<<< HEAD
 const validatePostcode = () => {
   // 只允许数字，并且最多4位
   postcode.value = postcode.value.replace(/\D/g, '').slice(0, 4)
@@ -157,6 +278,112 @@ const fetchUVData = async () => {
 }
 </script>
 
+=======
+const getUVColor = (index: number) => {
+  if (index <= 2) return '#00C853' // 绿色
+  if (index <= 5) return '#FFD600' // 黄色
+  if (index <= 7) return '#FF6D00' // 橙色
+  if (index <= 10) return '#D50000' // 红色
+  return '#6A1B9A' // 紫色 (极端)
+}
+
+// 生成 UV 图表
+const generateChart = async () => {
+  await nextTick();
+
+  if (!uvChart.value) {
+    console.warn("🟡 uvChart ref is null, retrying in 100ms...");
+    setTimeout(generateChart, 100);
+    return;
+  }
+
+  const ctx = uvChart.value.getContext("2d");
+  if (!ctx) {
+    console.error("❌ Canvas context is null!");
+    return;
+  }
+
+  console.log("✅ Creating Chart with Dynamic Segment Colors!");
+
+  const labels = uvData.value.data.map((entry) =>
+    new Date(entry.timestamp * 1000).toLocaleTimeString("en-AU", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
+  const uvValues = uvData.value.data.map((entry) => entry.uvIndex);
+
+  // **获取数据点颜色**
+  const borderColors = uvValues.map((value) => getUVColor(value));
+
+  if (chartInstance.value) {
+    chartInstance.value.destroy();
+  }
+
+  chartInstance.value = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "UV Index Over Time",
+          data: uvValues,
+          borderColor: borderColors, // 数据点颜色
+          pointBackgroundColor: borderColors, // 数据点颜色
+          pointBorderColor: borderColors,
+          borderWidth: 2,
+          segment: {
+            borderColor: (ctx) => {
+              // **ctx.p1DataIndex 获取当前 segment 的起始数据点索引**
+              return borderColors[ctx.p1DataIndex] || "#000"; // 默认值
+            },
+          },
+          fill: false, // 不填充区域
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+      legend: {
+        display: true, // 显示图例
+        position: "top",
+        labels: {
+          color: "#333",
+          font: { size: 14, weight: "bold" },
+          usePointStyle: true,
+          padding: 20,
+          generateLabels: (chart) => [
+            { text: "0-2 (Low)", fillStyle: "#00C853", strokeStyle: "#00C853" },
+            { text: "3-5 (Moderate)", fillStyle: "#FFD600", strokeStyle: "#FFD600" },
+            { text: "6-7 (High)", fillStyle: "#FF6D00", strokeStyle: "#FF6D00" },
+            { text: "8-10 (Very High)", fillStyle: "#D50000", strokeStyle: "#D50000" },
+            { text: "11+ (Extreme)", fillStyle: "#6A1B9A", strokeStyle: "#6A1B9A" },
+          ],
+        },
+      },
+    },
+      scales: {
+        x: { title: { display: true, text: "Time" } },
+        y: {
+          title: { display: true, text: "UV Index" },
+          beginAtZero: true,
+          suggestedMax: 12,
+        },
+      },
+    },
+  });
+};
+
+
+</script>
+
+
+
+
+
+
+>>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
 <style scoped>
 .page-container {
   display: flex;
