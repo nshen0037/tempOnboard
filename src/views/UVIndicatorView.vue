@@ -98,8 +98,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import * as apiMock from '../api'
+import { getUVByPostcode } from '../api'
 import NextPageArrow from '../components/NextPageArrow.vue'
+import { useStore } from '@/store/store'
 
 interface UVData {
   location: string
@@ -152,7 +153,9 @@ const fetchUVData = async () => {
 
   try {
     // 使用模拟数据，但传入邮政编码
-    const response = await apiMock.getMockUVData(`Melbourne ${postcode.value}`)
+    const response = await getUVByPostcode({ postcode: postcode.value })
+    const store = useStore()
+    store.setPostcode(response.postcode)
     uvData.value = response.data
   } catch (err) {
     error.value = 'Failed to fetch UV data. Please try again.'

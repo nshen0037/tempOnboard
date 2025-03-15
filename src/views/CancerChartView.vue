@@ -34,15 +34,9 @@
               <div class="filter-group">
                 <label for="gender"><i class="fas fa-venus-mars"></i> Gender:</label>
                 <select v-model="selectedGender" id="gender">
-<<<<<<< HEAD
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="all">All</option>
-=======
                   <option value="Males">Males</option>
                   <option value="Females">Females</option>
                   <option value="Persons">All</option>
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
                 </select>
               </div>
 
@@ -74,10 +68,6 @@
 import { ref, onMounted, nextTick } from 'vue'
 import Chart from 'chart.js/auto'
 import { getCancerChart } from '../api'
-<<<<<<< HEAD
-import * as apiMock from '../api'
-=======
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
 import NextPageArrow from '../components/NextPageArrow.vue'
 
 // 定义数据接口
@@ -92,7 +82,6 @@ let chartInstance: Chart | null = null
 const selectedGender = ref('all')
 
 const ageGroups = ref([
-<<<<<<< HEAD
   '0-4',
   '5-9',
   '10-14',
@@ -111,32 +100,7 @@ const ageGroups = ref([
   '75-79',
   '80-84',
   '85-89',
-  '90-94',
-  '95-99',
   'All ages combine',
-])
-
-const generateChart = async () => {
-  try {
-    // 尝试使用真实API，如果失败则使用模拟数据
-    let response
-    try {
-      response = await getCancerChart({
-        gender: selectedGender.value,
-        ageGroup: selectedAge.value,
-      })
-    } catch {
-      console.log('Using mock data instead of real API')
-      response = await apiMock.getMockCancerData(selectedGender.value, selectedAge.value)
-    }
-
-    const data = response.data
-    const years = data.map((entry: CancerDataEntry) => entry.year)
-    const counts = data.map((entry: CancerDataEntry) => entry.count)
-=======
-  '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34',
-  '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69',
-  '70-74', '75-79', '80-84', '85-89', 'All ages combine'
 ])
 
 // const generateChart = async () => {
@@ -234,10 +198,9 @@ const generateChart = async () => {
 
     const data: CancerDataEntry[] = response.data
 
-    const years = data.map(entry => entry.year)
-    const incidenceCounts = data.map(entry => Number(entry.incidence_count))
-    const mortalityCounts = data.map(entry => Number(entry.mortality_count))
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
+    const years = data.map((entry) => entry.year)
+    const incidenceCounts = data.map((entry) => Number(entry.incidence_count))
+    const mortalityCounts = data.map((entry) => Number(entry.mortality_count))
 
     await nextTick()
     if (chartInstance) chartInstance.destroy()
@@ -249,27 +212,16 @@ const generateChart = async () => {
           labels: years,
           datasets: [
             {
-<<<<<<< HEAD
-              label: `Cancer Cases (${selectedAge.value}, ${selectedGender.value})`,
-              data: counts,
-              borderColor: '#3498db',
-              backgroundColor: 'rgba(52, 152, 219, 0.2)',
-              fill: true,
-              tension: 0.4,
-=======
               label: `Cancer Incidence (${selectedAge.value}, ${selectedGender.value})`,
               data: incidenceCounts,
               borderColor: '#3498db',
               backgroundColor: 'rgba(52, 152, 219, 0.2)',
               fill: true,
               tension: 0.2,
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
               borderWidth: 3,
               pointBackgroundColor: '#3498db',
               pointRadius: 4,
             },
-<<<<<<< HEAD
-=======
             {
               label: `Cancer Mortality (${selectedAge.value}, ${selectedGender.value})`,
               data: mortalityCounts,
@@ -281,7 +233,6 @@ const generateChart = async () => {
               pointBackgroundColor: '#e74c3c',
               pointRadius: 4,
             },
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
           ],
         },
         options: {
@@ -290,30 +241,13 @@ const generateChart = async () => {
             legend: {
               position: 'top',
               labels: {
-<<<<<<< HEAD
-                font: {
-                  size: 14,
-                  weight: 'bold',
-                },
-=======
                 font: { size: 14, weight: 'bold' },
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
               },
             },
             tooltip: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
-<<<<<<< HEAD
-              titleFont: {
-                size: 16,
-                weight: 'bold',
-              },
-              bodyFont: {
-                size: 14,
-              },
-=======
               titleFont: { size: 16, weight: 'bold' },
               bodyFont: { size: 14 },
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
               padding: 15,
             },
           },
@@ -322,33 +256,15 @@ const generateChart = async () => {
               title: {
                 display: true,
                 text: 'Year',
-<<<<<<< HEAD
-                font: {
-                  size: 14,
-                  weight: 'bold',
-                },
-              },
-              grid: {
-                display: false,
-              },
-=======
                 font: { size: 14, weight: 'bold' },
               },
               grid: { display: false },
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
             },
             y: {
               title: {
                 display: true,
                 text: 'Number of Cases',
-<<<<<<< HEAD
-                font: {
-                  size: 14,
-                  weight: 'bold',
-                },
-=======
                 font: { size: 14, weight: 'bold' },
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
               },
               beginAtZero: true,
             },
@@ -365,19 +281,11 @@ const generateChart = async () => {
   }
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
 onMounted(() => {
   generateChart()
 })
 </script>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f925324 (Refactored and adjusted getCancerChart and getUVByPostcode methods to ensure proper chart rendering.)
 <style scoped>
 .page-container {
   display: flex;

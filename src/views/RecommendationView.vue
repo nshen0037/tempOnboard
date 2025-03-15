@@ -69,6 +69,7 @@
 import { ref } from 'vue'
 import NextPageArrow from '../components/NextPageArrow.vue'
 import { getRecommendation } from '../api'
+import { useStore } from '@/store/store'
 
 const selectedSkinTone = ref('')
 const recommendation = ref('')
@@ -113,19 +114,22 @@ const fetchRecommendation = async () => {
     // 获取皮肤类型数值和当前UV指数
     const skinType = skinTypeToNumber(selectedSkinTone.value)
     const uvIndex = getCurrentUVIndex()
+    const store = useStore()
 
     // 调用API获取推荐
     const response = await getRecommendation({
-      skinType,
-      uvIndex,
+      postcode: store.postcode,
+      skinTone: skinType,
     })
 
+    console.log(response.data.recommendation)
+
     // 处理响应
-    if (response && response.data) {
+    if (response) {
       recommendation.value =
         response.data.recommendation ||
-        `Based on your ${selectedSkinTone.value} skin and the current UV index of ${uvIndex}, 
-        we recommend using SPF ${skinType <= 2 ? '50+' : skinType <= 4 ? '30+' : '15+'} sunscreen 
+        `Based on your ${selectedSkinTone.value} skin and the current UV index of ${uvIndex},
+        we recommend using SPF ${skinType <= 2 ? '50+' : skinType <= 4 ? '30+' : '15+'} sunscreen
         and wearing protective clothing when outdoors.`
     } else {
       throw new Error('Invalid response from server')
@@ -137,8 +141,8 @@ const fetchRecommendation = async () => {
     // 使用模拟数据作为后备
     const skinType = skinTypeToNumber(selectedSkinTone.value)
     const uvIndex = getCurrentUVIndex()
-    recommendation.value = `Based on your ${selectedSkinTone.value} skin and the current UV index of ${uvIndex}, 
-      we recommend using SPF ${skinType <= 2 ? '50+' : skinType <= 4 ? '30+' : '15+'} sunscreen 
+    recommendation.value = `Based on your ${selectedSkinTone.value} skin and the current UV index of ${uvIndex},
+      we recommend using SPF ${skinType <= 2 ? '50+' : skinType <= 4 ? '30+' : '15+'} sunscreen
       and wearing protective clothing when outdoors.`
   } finally {
     loading.value = false

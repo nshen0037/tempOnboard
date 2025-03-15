@@ -40,13 +40,9 @@ export const getUVByPostcode = async (params) => {
 }
 
 // 获取防晒推荐（POST 请求）
-export const getRecommendation = async (data) => {
+export const getRecommendation = async (params) => {
   try {
-    const response = await axios.post(normalizeUrl('getRecommendation'), data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    const response = await axios.get(normalizeUrl('getRecommendation'), { params })
     return response.data
   } catch (error) {
     console.error('❌ Error fetching recommendation:', error)
