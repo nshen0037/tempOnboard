@@ -27,7 +27,8 @@
 
         <div class="sub-description">
           <p>
-            💡 You can use browser notifications to get timely reminders for reapplying sunscreen
+            💡 You can use browser notifications to get timely reminders every 2 hours for
+            reapplying sunscreen
           </p>
         </div>
 
@@ -40,13 +41,8 @@
         </div>
 
         <div class="reminder-interval">
-          <span>Remind me every:</span>
-          <select v-model="reminderInterval" :disabled="!notificationsEnabled">
-            <option value="1">1 hour</option>
-            <option value="2">2 hours</option>
-            <option value="3">3 hours</option>
-            <option value="4">4 hours</option>
-          </select>
+          <span>Reminder interval:</span>
+          <span class="fixed-interval">2 hours</span>
         </div>
 
         <div class="progress-bar">
@@ -64,11 +60,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import NextPageArrow from '../components/NextPageArrow.vue'
 
 const notificationsEnabled = ref(false)
-const reminderInterval = ref('2') // 默认为2小时
+const reminderInterval = '2' // 固定为2小时
 const nextReminderTime = ref('')
 const progressWidth = ref(0)
 let reminderTimer: number | null = null
@@ -158,7 +154,7 @@ const sendNotification = () => {
 const startReminderTimer = () => {
   stopReminderTimer() // 先停止现有的计时器
 
-  const intervalMs = parseInt(reminderInterval.value) * 60 * 60 * 1000
+  const intervalMs = parseInt(reminderInterval) * 60 * 60 * 1000
   reminderTimer = window.setTimeout(sendNotification, intervalMs)
 
   // 设置下次提醒时间
@@ -213,7 +209,7 @@ const saveSettings = () => {
     'sunProtectorNotifications',
     JSON.stringify({
       enabled: notificationsEnabled.value,
-      interval: reminderInterval.value,
+      interval: reminderInterval,
     }),
   )
 }
@@ -224,7 +220,6 @@ const loadSettings = () => {
   if (saved) {
     const settings = JSON.parse(saved)
     notificationsEnabled.value = settings.enabled
-    reminderInterval.value = settings.interval
 
     if (notificationsEnabled.value) {
       // 如果通知已启用，则检查权限并开始计时器
@@ -239,19 +234,6 @@ const loadSettings = () => {
     }
   }
 }
-
-// 当提醒间隔变化时重启计时器
-const restartTimerOnIntervalChange = () => {
-  if (notificationsEnabled.value) {
-    startReminderTimer()
-  }
-  saveSettings()
-}
-
-// 监听间隔变化并重启计时器
-watch(reminderInterval, () => {
-  restartTimerOnIntervalChange()
-})
 
 // 组件挂载时
 onMounted(() => {
@@ -554,6 +536,17 @@ input:checked + .slider:before {
 .reminder-interval select:disabled {
   background-color: #f5f5f5;
   color: #999;
+}
+
+.fixed-interval {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1565c0;
+  background-color: #e3f2fd;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
 }
 
 .progress-bar {
