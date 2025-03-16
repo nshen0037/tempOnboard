@@ -72,6 +72,7 @@ let progressTimer: number | null = null
 
 // 检查浏览器是否支持通知
 const checkNotificationSupport = () => {
+  // 使用浏览器原生的通知API
   return 'Notification' in window
 }
 
