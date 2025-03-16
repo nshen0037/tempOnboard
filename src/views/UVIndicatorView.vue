@@ -134,7 +134,8 @@ const fetchUVData = async () => {
   try {
     console.log('📡 Fetching UV data for postcode:', postcode.value)
     const response = await getUVByPostcode({ postcode: postcode.value })
-    console.log('📊 API Response:', response.data)
+    const store = useStore()
+    store.setPostcode(postcode.value)
 
     if (Array.isArray(response.data)) {
       uvData.value = {

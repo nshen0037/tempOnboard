@@ -23,7 +23,7 @@ export const getUVData = async (location: string) => {
 }
 
 // 获取防晒推荐
-export const getRecommendation = async (params: { skinTone: number; postcode: number }) => {
+export const getRecommendation = async (params: { skinTone: number; postcode: string }) => {
   try {
     const response = await axios.get(normalizeUrl('getRecommendation'), { params })
     return response.data  // 确保返回的是后端的 JSON 数据
