@@ -26,7 +26,7 @@ export const getUVData = async (location: string) => {
 export const getRecommendation = async (params: { skinTone: number; postcode: string }) => {
   try {
     const response = await axios.get(normalizeUrl('getRecommendation'), { params })
-    return response.data  // 确保返回的是后端的 JSON 数据
+    return response.data // 确保返回的是后端的 JSON 数据
   } catch (error) {
     console.error('❌ Error fetching recommendation:', error)
     throw error
