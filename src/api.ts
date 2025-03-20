@@ -23,12 +23,14 @@ export const getUVData = async (location: string) => {
 }
 
 // 获取防晒推荐
-export const getRecommendation = async (data: { skinType: number; uvIndex: number }) => {
-  return axios.post(normalizeUrl('getRecommendation'), data, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+export const getRecommendation = async (params: { skinTone: number; postcode: string }) => {
+  try {
+    const response = await axios.get(normalizeUrl('getRecommendation'), { params })
+    return response.data // 确保返回的是后端的 JSON 数据
+  } catch (error) {
+    console.error('❌ Error fetching recommendation:', error)
+    throw error
+  }
 }
 
 // 获取衣物推荐

@@ -7,7 +7,7 @@
           <i class="fas fa-umbrella-beach"></i> Sun Protector
         </router-link>
         <router-link to="/cancer-chart" class="nav-button active">
-          <i class="fas fa-chart-bar"></i> Cancer Chart
+          <i class="fas fa-chart-bar"></i> Cancer Insights
         </router-link>
         <router-link to="/uv-indicator" class="nav-button">
           <i class="fas fa-sun"></i> UV Indicator
@@ -23,7 +23,7 @@
 
     <div class="content">
       <div class="recommendation-section">
-        <h2><i class="fas fa-chart-bar icon-title"></i> Cancer Chart</h2>
+        <h2><i class="fas fa-chart-bar icon-title"></i> Cancer Insights</h2>
         <div class="sub-description">
           <p>💡 Select gender or age group to view skin cancer cases from 1960 to 2024</p>
         </div>
@@ -54,6 +54,16 @@
 
             <div class="chart-container">
               <canvas ref="cancerChart"></canvas>
+            </div>
+
+            <div class="chart-description">
+              <p>
+                This chart visualizes the trends in skin cancer incidence (blue) and mortality (red)
+                across different gender and age groups. Users can select a gender and age range to
+                generate a corresponding data visualization. The line graph illustrates how
+                incidence and mortality rates have changed over the years, providing insights into
+                the long-term trends of the disease within specific demographics.
+              </p>
             </div>
           </div>
         </div>
@@ -602,6 +612,20 @@ h2 {
 .chart-container:hover {
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.15);
   transform: scale(1.01);
+}
+
+.chart-description {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-left: 4px solid #3498db;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.15);
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  animation: fadeIn 0.8s ease;
 }
 
 .loading {

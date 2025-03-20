@@ -7,7 +7,7 @@
           <i class="fas fa-umbrella-beach"></i> Sun Protector
         </router-link>
         <router-link to="/cancer-chart" class="nav-button">
-          <i class="fas fa-chart-bar"></i> Cancer Chart
+          <i class="fas fa-chart-bar"></i> Cancer Insights
         </router-link>
         <router-link to="/uv-indicator" class="nav-button">
           <i class="fas fa-sun"></i> UV Indicator
@@ -32,16 +32,38 @@
           <!-- 皮肤类型选择 -->
           <div class="skin-tone-section">
             <label for="skinTone"><i class="fas fa-palette"></i> Skin Tone:</label>
-            <select v-model="selectedSkinTone" id="skinTone">
-              <option value="dark-brown">Dark Brown</option>
-              <option value="brown">Brown</option>
-              <option value="light-brown">Light Brown</option>
-              <option value="beige">Beige</option>
-              <option value="fair">Fair</option>
-            </select>
+            <div class="custom-select-container">
+              <select v-model="selectedSkinTone" id="skinTone">
+                <option value="dark-brown">Dark Brown</option>
+                <option value="brown">Brown</option>
+                <option value="light-brown">Light Brown</option>
+                <option value="beige">Beige</option>
+                <option value="fair">Fair</option>
+              </select>
+              <div class="selected-color-indicator" :class="selectedSkinTone + '-swatch'"></div>
+            </div>
             <button @click="fetchRecommendation" class="go-btn">
               <i class="fas fa-search"></i> Go
             </button>
+          </div>
+
+          <!-- 肤色样本展示 -->
+          <div class="skin-tone-samples">
+            <div class="skin-sample dark-brown-swatch" @click="selectedSkinTone = 'dark-brown'">
+              <span>Dark Brown</span>
+            </div>
+            <div class="skin-sample brown-swatch" @click="selectedSkinTone = 'brown'">
+              <span>Brown</span>
+            </div>
+            <div class="skin-sample light-brown-swatch" @click="selectedSkinTone = 'light-brown'">
+              <span>Light Brown</span>
+            </div>
+            <div class="skin-sample beige-swatch" @click="selectedSkinTone = 'beige'">
+              <span>Beige</span>
+            </div>
+            <div class="skin-sample fair-swatch" @click="selectedSkinTone = 'fair'">
+              <span>Fair</span>
+            </div>
           </div>
 
           <!-- 推荐结果 -->
@@ -359,10 +381,10 @@ h2 {
 
 .skin-tone-section select {
   padding: 14px 20px;
+  padding-right: 40px; /* 为颜色指示器留出空间 */
   font-size: 16px;
   border: 2px solid #bbdefb;
   border-radius: 8px;
-  margin-right: 15px;
   background-color: white;
   color: #455a64;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -499,5 +521,78 @@ h2 {
   line-height: 1.6;
   position: relative;
   z-index: 2;
+}
+
+/* 肤色样本样式 */
+.skin-tone-samples {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.skin-sample {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.2s;
+  width: 18%;
+  height: 80px;
+  justify-content: flex-end;
+  color: white;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.skin-sample:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-brown-swatch {
+  background-color: #69503b;
+}
+
+.brown-swatch {
+  background-color: #9e7142;
+}
+
+.light-brown-swatch {
+  background-color: #c19a6c;
+}
+
+.beige-swatch {
+  background-color: #e1c096;
+}
+
+.fair-swatch {
+  background-color: #f3e0be;
+  color: #333;
+  text-shadow: none;
+}
+
+.custom-select-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.selected-color-indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  pointer-events: none;
 }
 </style>

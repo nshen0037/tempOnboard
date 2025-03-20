@@ -1,8 +1,6 @@
 <template>
-  <div class="next-page-arrow" @click="navigateToNextPage">
-    <div class="arrow-container">
-      <span class="arrow-down"></span>
-    </div>
+  <div class="next-page-container" @click="navigateToNextPage">
+    <button class="next-page-button">Next Page</button>
     <div class="next-page-text">{{ nextPageName }}</div>
   </div>
 </template>
@@ -23,42 +21,42 @@ const navigateToNextPage = () => {
 </script>
 
 <style scoped>
-.next-page-arrow {
+.next-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
   margin-bottom: 20px;
   cursor: pointer;
-  transition: transform 0.3s;
 }
 
-.next-page-arrow:hover {
-  transform: translateY(5px);
-}
-
-.arrow-container {
-  width: 50px;
-  height: 50px;
-  background: #007bff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.next-page-button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.arrow-down {
-  width: 15px;
-  height: 15px;
-  border-right: 3px solid white;
-  border-bottom: 3px solid white;
-  transform: rotate(45deg);
-  margin-top: -5px;
+.next-page-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #1e88e5, #1976d2);
+}
+
+.next-page-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .next-page-text {
+  margin-top: 10px;
   font-size: 14px;
   font-weight: 500;
   color: #555;

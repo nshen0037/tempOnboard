@@ -7,7 +7,7 @@
           <i class="fas fa-umbrella-beach"></i> Sun Protector
         </router-link>
         <router-link to="/cancer-chart" class="nav-button">
-          <i class="fas fa-chart-bar"></i> Cancer Chart
+          <i class="fas fa-chart-bar"></i> Cancer Insights
         </router-link>
         <router-link to="/uv-indicator" class="nav-button">
           <i class="fas fa-sun"></i> UV Indicator
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <NextPageArrow nextRoute="/cancer-chart" nextPageName="Cancer Chart" />
+      <NextPageArrow nextRoute="/cancer-chart" nextPageName="Cancer Insights" />
     </div>
   </div>
 </template>

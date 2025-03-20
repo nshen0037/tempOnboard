@@ -29,7 +29,7 @@ const isOpen = ref(false)
 
 const menuItems = [
   { name: 'Home', path: '/' },
-  { name: 'Cancer Chart', path: '/cancer-chart' },
+  { name: 'Cancer Insights', path: '/cancer-chart' },
   { name: 'UV Indicator', path: '/uv-indicator' },
   { name: 'Recommendation', path: '/recommendation' },
   { name: 'Set Reminders', path: '/reminder' },
