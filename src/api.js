@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// 读取环境变量中的 API Gateway 地址
+// Read API Gateway address from environment variables
 const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 if (!BASE_URL) {
@@ -17,7 +17,7 @@ const normalizeUrl = (endpoint) => {
   return `${BASE_URL.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`
 }
 
-// 获取癌症数据（GET 请求）
+// Get cancer data (GET request)
 export const getCancerChart = async (params) => {
   try {
     const response = await axios.get(normalizeUrl('getCancerChart'), { params })
@@ -28,7 +28,7 @@ export const getCancerChart = async (params) => {
   }
 }
 
-// 获取 UV 指数数据（GET 请求）
+// Get UV index data (GET request)
 export const getUVByPostcode = async (params) => {
   try {
     const response = await axios.get(normalizeUrl('getUVByPostcode'), { params })
@@ -39,7 +39,7 @@ export const getUVByPostcode = async (params) => {
   }
 }
 
-// 获取防晒推荐（POST 请求）
+// Get sunscreen recommendations (POST request)
 export const getRecommendation = async (params) => {
   try {
     const response = await axios.get(normalizeUrl('getRecommendation'), { params })
@@ -50,7 +50,7 @@ export const getRecommendation = async (params) => {
   }
 }
 
-// 获取衣物推荐（GET 请求）
+// Get clothing recommendations (GET request)
 export const getClothingRecommendation = async (params) => {
   try {
     const response = await axios.get(normalizeUrl('getClothingRecommendation'), { params })
@@ -61,7 +61,7 @@ export const getClothingRecommendation = async (params) => {
   }
 }
 
-// 获取防晒霜推荐（GET 请求）
+// Get sunscreen recommendations (GET request)
 export const getSunscreenRecommendation = async (params) => {
   try {
     const response = await axios.get(normalizeUrl('getSunscreenRecommendation'), { params })

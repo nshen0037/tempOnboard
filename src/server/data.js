@@ -136,4 +136,4 @@ const skinToneRecommendations = {
   fair: 'Use SPF 50+ broad-spectrum sunscreen. Your skin is highly sensitive to UV rays and prone to sunburn. Avoid the sun during peak hours, wear sunglasses, and always carry an umbrella or hat for protection.',
 }
 
-export { cancerData, uvDataByPostcode, skinToneRecommendations } // ✅ 正确的 ES 模块导出
+export { cancerData, uvDataByPostcode, skinToneRecommendations } // Correct ES module export

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-// 移除NavMenu导入
+// Removed NavMenu import
 </script>
 
 <template>
   <div class="app">
-    <!-- 移除NavMenu组件，只保留路由视图 -->
+    <!-- Removed NavMenu component, keeping only router view -->
     <router-view />
   </div>
 </template>

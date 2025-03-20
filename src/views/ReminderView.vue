@@ -64,36 +64,36 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import NextPageArrow from '../components/NextPageArrow.vue'
 
 const notificationsEnabled = ref(false)
-const reminderInterval = '2' // 固定为2小时
+const reminderInterval = '2' // Fixed at 2 hours
 const nextReminderTime = ref('')
 const progressWidth = ref(0)
 let reminderTimer: number | null = null
 let progressTimer: number | null = null
 
-// 检查浏览器是否支持通知
+// Check if browser supports notifications
 const checkNotificationSupport = () => {
-  // 使用浏览器原生的通知API
+  // Use browser's native notification API
   return 'Notification' in window
 }
 
-// 请求通知权限
+// Request notification permission
 const requestNotificationPermission = async () => {
   if (!checkNotificationSupport()) {
     alert('Your browser does not support notifications')
     return false
   }
 
-  // 如果已经获得了权限，直接返回成功
+  // If permission is already granted, return success
   if (Notification.permission === 'granted') {
     return true
   }
 
-  // 如果权限状态是默认的（未决定），则请求权限
+  // If permission status is default (undecided), request permission
   if (Notification.permission !== 'denied') {
     try {
-      // 显示浏览器原生的权限请求对话框
-      // 对话框文本会自动翻译成用户浏览器的语言
-      // 通常会显示："Allow [网站名] to send notifications?" 并有 "Allow" 和 "Block" 按钮
+      // Show browser's native permission request dialog
+      // Dialog text will automatically translate to user's browser language
+      // Typically shows: "Allow [site name] to send notifications?" with "Allow" and "Block" buttons
       const permission = await Notification.requestPermission()
       return permission === 'granted'
     } catch (error) {
@@ -102,38 +102,38 @@ const requestNotificationPermission = async () => {
     }
   }
 
-  // 如果权限已被拒绝，返回失败
+  // If permission is denied, return failure
   return false
 }
 
-// 切换通知状态
+// Toggle notification status
 const toggleNotifications = async () => {
   if (notificationsEnabled.value) {
-    // 用户尝试开启通知
+    // User is trying to enable notifications
     const permissionGranted = await requestNotificationPermission()
     if (!permissionGranted) {
-      // 如果用户拒绝了权限请求，将开关切回关闭状态
+      // If user denied permission request, toggle switch back to off
       notificationsEnabled.value = false
 
-      // 显示提示信息
+      // Show information message
       if (Notification.permission === 'denied') {
         alert('Notification permission was denied. You can enable it in your browser settings.')
       }
       return
     }
 
-    // 权限获取成功，开始计时器
+    // Permission granted successfully, start timer
     startReminderTimer()
   } else {
-    // 用户关闭了通知
+    // User turned off notifications
     stopReminderTimer()
   }
 
-  // 保存设置
+  // Save settings
   saveSettings()
 }
 
-// 发送通知
+// Send notification
 const sendNotification = () => {
   if (!notificationsEnabled.value) return
 
@@ -147,27 +147,27 @@ const sendNotification = () => {
     notification.close()
   }
 
-  // 重置进度条并开始新的计时
+  // Reset progress bar and start new timer
   resetProgressBar()
 }
 
-// 开始提醒计时器
+// Start reminder timer
 const startReminderTimer = () => {
-  stopReminderTimer() // 先停止现有的计时器
+  stopReminderTimer() // Stop existing timer first
 
   const intervalMs = parseInt(reminderInterval) * 60 * 60 * 1000
   reminderTimer = window.setTimeout(sendNotification, intervalMs)
 
-  // 设置下次提醒时间
+  // Set next reminder time
   const nextTime = new Date()
   nextTime.setTime(nextTime.getTime() + intervalMs)
   nextReminderTime.value = nextTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
-  // 开始进度条动画
+  // Start progress bar animation
   startProgressBar(intervalMs)
 }
 
-// 停止提醒计时器
+// Stop reminder timer
 const stopReminderTimer = () => {
   if (reminderTimer) {
     clearTimeout(reminderTimer)
@@ -183,10 +183,10 @@ const stopReminderTimer = () => {
   progressWidth.value = 0
 }
 
-// 开始进度条动画
+// Start progress bar animation
 const startProgressBar = (totalDuration: number) => {
   const startTime = Date.now()
-  const updateInterval = 1000 // 每秒更新一次
+  const updateInterval = 1000 // Update every second
 
   progressTimer = window.setInterval(() => {
     const elapsedTime = Date.now() - startTime
@@ -198,13 +198,13 @@ const startProgressBar = (totalDuration: number) => {
   }, updateInterval)
 }
 
-// 重置进度条
+// Reset progress bar
 const resetProgressBar = () => {
   progressWidth.value = 0
   startReminderTimer()
 }
 
-// 保存设置
+// Save settings
 const saveSettings = () => {
   localStorage.setItem(
     'sunProtectorNotifications',
@@ -215,7 +215,7 @@ const saveSettings = () => {
   )
 }
 
-// 加载设置
+// Load settings
 const loadSettings = () => {
   const saved = localStorage.getItem('sunProtectorNotifications')
   if (saved) {
@@ -223,7 +223,7 @@ const loadSettings = () => {
     notificationsEnabled.value = settings.enabled
 
     if (notificationsEnabled.value) {
-      // 如果通知已启用，则检查权限并开始计时器
+      // If notifications are enabled, check permission and start timer
       requestNotificationPermission().then((granted) => {
         if (granted && notificationsEnabled.value) {
           startReminderTimer()
@@ -236,12 +236,12 @@ const loadSettings = () => {
   }
 }
 
-// 组件挂载时
+// Component mounted
 onMounted(() => {
   loadSettings()
 })
 
-// 组件卸载时
+// Component unmounted
 onUnmounted(() => {
   stopReminderTimer()
 })

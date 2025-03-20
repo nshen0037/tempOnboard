@@ -1,23 +1,23 @@
 import express from 'express'
-import { cancerData, uvDataByPostcode, skinToneRecommendations } from './data.js' // ✅ 现在使用解构导入
+import { cancerData, uvDataByPostcode, skinToneRecommendations } from './data.js' // Now using destructured import
 
 const router = express.Router()
 
-// 获取癌症数据
+// Get cancer data
 router.post('/cancer-data', (req, res) => {
   const { gender, ageGroup } = req.body
   const result = cancerData[gender]?.[ageGroup] || []
   res.json(result)
 })
 
-// 获取 UV 数据
+// Get UV data
 router.post('/uv-data', (req, res) => {
   const { postcode } = req.body
   const result = uvDataByPostcode[postcode] || []
   res.json(result)
 })
 
-// 获取 Skin Tone 推荐
+// Get skin tone recommendations
 router.post('/skin-tone-recommendation', (req, res) => {
   const { skinTone } = req.body
   const recommendation = skinToneRecommendations[skinTone] || 'No recommendation available.'

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-// 定义状态的类型
+// Define state type
 interface StoreState {
   postcode: string | null
 }

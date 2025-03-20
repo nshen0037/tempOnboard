@@ -120,7 +120,7 @@ const recommendation = ref('')
 const loading = ref(false)
 const error = ref('')
 
-// 将皮肤类型映射到数值
+// Map skin type to numeric value
 const skinTypeToNumber = (skinType: string): number => {
   switch (skinType) {
     case 'fair':
@@ -134,15 +134,15 @@ const skinTypeToNumber = (skinType: string): number => {
     case 'dark-brown':
       return 5
     default:
-      return 3 // 默认中等肤色
+      return 3 // Default: medium skin tone
   }
 }
 
-// 获取当前UV指数（模拟数据）
+// Get current UV index (mock data)
 const getCurrentUVIndex = (): number => {
-  // 这里可以根据实际情况获取当前UV指数
-  // 在实际应用中，这可能来自另一个API调用或存储的数据
-  return 8 // 假设当前UV指数为8（很高）
+  // This can be replaced with actual UV index data
+  // In a real application, this would come from another API call or stored data
+  return 8 // Assume current UV index is 8 (high)
 }
 
 const fetchRecommendation = async () => {
@@ -160,17 +160,17 @@ const fetchRecommendation = async () => {
   error.value = ''
 
   try {
-    // 获取皮肤类型数值和当前UV指数
+    // Get skin type value and current UV index
     const skinType = skinTypeToNumber(selectedSkinTone.value)
     const uvIndex = getCurrentUVIndex()
 
-    // 调用API获取推荐
+    // Call API to get recommendations
     const response = await getRecommendation({
       postcode: store.postcode,
       skinTone: skinType,
     })
 
-    // 处理响应
+    // Process response
     if (response) {
       recommendation.value =
         response.recommendation ||
@@ -184,7 +184,7 @@ const fetchRecommendation = async () => {
     console.error('Error fetching recommendation:', err)
     error.value = 'Failed to get recommendations. Please try again.'
 
-    // 使用模拟数据作为后备
+    // Use mock data as fallback
     const skinType = skinTypeToNumber(selectedSkinTone.value)
     const uvIndex = getCurrentUVIndex()
     recommendation.value = `Based on your ${selectedSkinTone.value} skin and the current UV index of ${uvIndex},

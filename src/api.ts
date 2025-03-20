@@ -1,39 +1,39 @@
 import axios from 'axios'
 
-// 读取环境变量中的 API Gateway 地址
+// Read API Gateway address from environment variables
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://your-default-api.com'
 
-// 处理 URL，防止 `//` 斜杠问题
+// Process URL to prevent `//` slash issues
 const normalizeUrl = (endpoint: string): string =>
   `${BASE_URL.replace(/\/$/, '')}/${endpoint.replace(/^\//, '')}`
 
-// 获取癌症数据
+// Get cancer data
 export const getCancerChart = async (params: { gender: string; ageGroup: string }) => {
   return axios.get(normalizeUrl('getCancerChart'), { params })
 }
 
-// 获取 UV 指数数据
+// Get UV index data
 export const getUVByPostcode = async (params: { postcode: string }) => {
   return axios.get(normalizeUrl('getUVByPostcode'), { params })
 }
 
-// 获取 UV 指数数据（通过位置名称）
+// Get UV index data (by location name)
 export const getUVData = async (location: string) => {
   return axios.get(normalizeUrl('getUVData'), { params: { location } })
 }
 
-// 获取防晒推荐
+// Get sunscreen recommendations
 export const getRecommendation = async (params: { skinTone: number; postcode: string }) => {
   try {
     const response = await axios.get(normalizeUrl('getRecommendation'), { params })
-    return response.data // 确保返回的是后端的 JSON 数据
+    return response.data // Ensure we return the JSON data from the backend
   } catch (error) {
     console.error('❌ Error fetching recommendation:', error)
     throw error
   }
 }
 
-// 获取衣物推荐
+// Get clothing recommendations
 export const getClothingRecommendation = async (params: {
   uvIndex: number
   temperature: number
@@ -41,12 +41,12 @@ export const getClothingRecommendation = async (params: {
   return axios.get(normalizeUrl('getClothingRecommendation'), { params })
 }
 
-// 获取防晒霜推荐
+// Get sunscreen recommendations
 export const getSunscreenRecommendation = async (params: { skinType: number; uvIndex: number }) => {
   return axios.get(normalizeUrl('getSunscreenRecommendation'), { params })
 }
 
-// 模拟数据（当API不可用时使用）
+// Mock data (used when API is unavailable)
 export const getMockUVData = (location: string) => {
   return Promise.resolve({
     data: {
@@ -66,25 +66,25 @@ export const getMockUVData = (location: string) => {
 }
 
 export const getMockCancerData = (gender: string, ageGroup: string) => {
-  // 生成模拟数据，根据性别和年龄组调整数据
+  // Generate mock data, adjust based on gender and age group
   const years = Array.from({ length: 13 }, (_, i) => (1960 + i * 5).toString())
 
-  // 根据性别和年龄组调整基础数值
+  // Adjust base values based on gender and age group
   let baseCases = 20
   if (gender === 'male') baseCases += 10
   if (gender === 'female') baseCases += 5
 
-  // 年龄组影响增长率
+  // Age group affects growth rate
   let growthFactor = 1.0
   if (ageGroup.includes('5')) growthFactor = 1.2
   if (ageGroup.includes('6')) growthFactor = 1.5
   if (ageGroup.includes('7')) growthFactor = 1.8
   if (ageGroup.includes('8')) growthFactor = 2.0
 
-  // 生成随机但有一定模式的数据
+  // Generate random but patterned data
   const counts = years.map((year, index) => {
     const yearNum = parseInt(year)
-    const yearFactor = (yearNum - 1960) / 10 // 随时间增长
+    const yearFactor = (yearNum - 1960) / 10 // Increase over time
     return Math.floor(
       (baseCases + index * growthFactor * 5) * (1 + yearFactor * 0.2) + Math.random() * 20,
     )

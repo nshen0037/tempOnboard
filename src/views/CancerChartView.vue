@@ -81,7 +81,7 @@ import Chart from 'chart.js/auto'
 import { getCancerChart } from '../api'
 import NextPageArrow from '../components/NextPageArrow.vue'
 
-// 定义数据接口
+// Define data interfaces
 interface CancerDataEntry {
   year: string
   count: number
