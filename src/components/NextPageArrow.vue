@@ -1,10 +1,5 @@
 <template>
-  <div class="next-page-arrow" @click="navigateToNextPage">
-    <div class="arrow-container">
-      <span class="arrow-down"></span>
-    </div>
-    <div class="next-page-text">{{ nextPageName }}</div>
-  </div>
+  <div class="next-page-button" @click="navigateToNextPage">Next Page: {{ nextPageName }}</div>
 </template>
 
 <script setup lang="ts">
@@ -23,44 +18,25 @@ const navigateToNextPage = () => {
 </script>
 
 <style scoped>
-.next-page-arrow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.next-page-arrow:hover {
-  transform: translateY(5px);
-}
-
-.arrow-container {
-  width: 50px;
-  height: 50px;
-  background: #007bff;
-  border-radius: 50%;
+.next-page-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
-}
-
-.arrow-down {
-  width: 15px;
-  height: 15px;
-  border-right: 3px solid white;
-  border-bottom: 3px solid white;
-  transform: rotate(45deg);
-  margin-top: -5px;
-}
-
-.next-page-text {
-  font-size: 14px;
+  margin: 30px auto 20px;
+  padding: 12px 24px;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
   font-weight: 500;
-  color: #555;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+}
+
+.next-page-button:hover {
+  background: #0069d9;
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 </style>

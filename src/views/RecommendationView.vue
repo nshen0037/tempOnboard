@@ -7,7 +7,7 @@
           <i class="fas fa-umbrella-beach"></i> Sun Protector
         </router-link>
         <router-link to="/cancer-chart" class="nav-button">
-          <i class="fas fa-chart-bar"></i> Cancer Chart
+          <i class="fas fa-chart-bar"></i> Cancer Insights
         </router-link>
         <router-link to="/uv-indicator" class="nav-button">
           <i class="fas fa-sun"></i> UV Indicator
@@ -32,13 +32,57 @@
           <!-- 皮肤类型选择 -->
           <div class="skin-tone-section">
             <label for="skinTone"><i class="fas fa-palette"></i> Skin Tone:</label>
-            <select v-model="selectedSkinTone" id="skinTone">
-              <option value="dark-brown">Dark Brown</option>
-              <option value="brown">Brown</option>
-              <option value="light-brown">Light Brown</option>
-              <option value="beige">Beige</option>
-              <option value="fair">Fair</option>
-            </select>
+            <div class="select-container">
+              <select v-model="selectedSkinTone" id="skinTone">
+                <option value="dark-brown">Dark Brown</option>
+                <option value="brown">Brown</option>
+                <option value="light-brown">Light Brown</option>
+                <option value="beige">Beige</option>
+                <option value="fair">Fair</option>
+              </select>
+              <div class="skin-tone-samples">
+                <div class="tone-sample-container">
+                  <div
+                    class="tone-sample dark-brown"
+                    @click="selectedSkinTone = 'dark-brown'"
+                    :class="{ active: selectedSkinTone === 'dark-brown' }"
+                  ></div>
+                  <span class="tone-label">Dark Brown</span>
+                </div>
+                <div class="tone-sample-container">
+                  <div
+                    class="tone-sample brown"
+                    @click="selectedSkinTone = 'brown'"
+                    :class="{ active: selectedSkinTone === 'brown' }"
+                  ></div>
+                  <span class="tone-label">Brown</span>
+                </div>
+                <div class="tone-sample-container">
+                  <div
+                    class="tone-sample light-brown"
+                    @click="selectedSkinTone = 'light-brown'"
+                    :class="{ active: selectedSkinTone === 'light-brown' }"
+                  ></div>
+                  <span class="tone-label">Light Brown</span>
+                </div>
+                <div class="tone-sample-container">
+                  <div
+                    class="tone-sample beige"
+                    @click="selectedSkinTone = 'beige'"
+                    :class="{ active: selectedSkinTone === 'beige' }"
+                  ></div>
+                  <span class="tone-label">Beige</span>
+                </div>
+                <div class="tone-sample-container">
+                  <div
+                    class="tone-sample fair"
+                    @click="selectedSkinTone = 'fair'"
+                    :class="{ active: selectedSkinTone === 'fair' }"
+                  ></div>
+                  <span class="tone-label">Fair</span>
+                </div>
+              </div>
+            </div>
             <button @click="fetchRecommendation" class="go-btn">
               <i class="fas fa-search"></i> Go
             </button>
@@ -358,22 +402,89 @@ h2 {
 }
 
 .skin-tone-section select {
-  padding: 14px 20px;
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
   font-size: 16px;
-  border: 2px solid #bbdefb;
+  border: 2px solid #90caf9;
   border-radius: 8px;
-  margin-right: 15px;
-  background-color: white;
-  color: #455a64;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s;
-  width: 200px;
+  background-color: #ffffff;
+  color: #1565c0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
 }
 
 .skin-tone-section select:focus {
   border-color: #1976d2;
-  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.25);
   outline: none;
+}
+
+.select-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.skin-tone-samples {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 5px;
+}
+
+.tone-sample-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.tone-label {
+  font-size: 12px;
+  color: #1565c0;
+  text-align: center;
+}
+
+.tone-sample {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.tone-sample:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tone-sample.active {
+  border: 2px solid #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
+}
+
+.dark-brown {
+  background-color: #3b2219;
+}
+
+.brown {
+  background-color: #6e4c36;
+}
+
+.light-brown {
+  background-color: #ad8762;
+}
+
+.beige {
+  background-color: #e0c4a7;
+}
+
+.fair {
+  background-color: #f2e2cf;
 }
 
 .go-btn {

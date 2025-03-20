@@ -7,7 +7,7 @@
           <i class="fas fa-umbrella-beach"></i> Sun Protector
         </router-link>
         <router-link to="/cancer-chart" class="nav-button active">
-          <i class="fas fa-chart-bar"></i> Cancer Chart
+          <i class="fas fa-chart-bar"></i> Cancer Insights
         </router-link>
         <router-link to="/uv-indicator" class="nav-button">
           <i class="fas fa-sun"></i> UV Indicator
@@ -23,7 +23,7 @@
 
     <div class="content">
       <div class="recommendation-section">
-        <h2><i class="fas fa-chart-bar icon-title"></i> Cancer Chart</h2>
+        <h2><i class="fas fa-chart-bar icon-title"></i> Cancer Insights</h2>
         <div class="sub-description">
           <p>💡 Select gender or age group to view skin cancer cases from 1960 to 2024</p>
         </div>
@@ -55,6 +55,17 @@
             <div class="chart-container">
               <canvas ref="cancerChart"></canvas>
             </div>
+
+            <div class="chart-description">
+              This chart visualizes the trends in skin cancer incidence (blue) and mortality (red)
+              across different gender and age groups. Users can select a gender and age range to
+              generate a corresponding data visualization. The line graph illustrates how incidence
+              and mortality rates have changed over the years, providing insights into the long-term
+              trends of the disease within specific demographics. The 24-hour range provides a
+              complete view of UV index fluctuations throughout the day. While UV levels peak during
+              daylight hours, displaying the full cycle ensures consistency and allows for trend
+              analysis.
+            </div>
           </div>
         </div>
       </div>
@@ -82,9 +93,25 @@ let chartInstance: Chart | null = null
 const selectedGender = ref('all')
 
 const ageGroups = ref([
-  '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34',
-  '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69',
-  '70-74', '75-79', '80-84', '85-89', 'All ages combine'
+  '0-4',
+  '5-9',
+  '10-14',
+  '15-19',
+  '20-24',
+  '25-29',
+  '30-34',
+  '35-39',
+  '40-44',
+  '45-49',
+  '50-54',
+  '55-59',
+  '60-64',
+  '65-69',
+  '70-74',
+  '75-79',
+  '80-84',
+  '85-89',
+  'All ages combine',
 ])
 
 // const generateChart = async () => {
@@ -182,9 +209,9 @@ const generateChart = async () => {
 
     const data: CancerDataEntry[] = response.data
 
-    const years = data.map(entry => entry.year)
-    const incidenceCounts = data.map(entry => Number(entry.incidence_count))
-    const mortalityCounts = data.map(entry => Number(entry.mortality_count))
+    const years = data.map((entry) => entry.year)
+    const incidenceCounts = data.map((entry) => Number(entry.incidence_count))
+    const mortalityCounts = data.map((entry) => Number(entry.mortality_count))
 
     await nextTick()
     if (chartInstance) chartInstance.destroy()
@@ -265,12 +292,10 @@ const generateChart = async () => {
   }
 }
 
-
 onMounted(() => {
   generateChart()
 })
 </script>
-
 
 <style scoped>
 .page-container {
@@ -642,6 +667,31 @@ h2 {
   40%,
   80% {
     transform: translateX(5px);
+  }
+}
+
+.chart-description {
+  margin-top: 20px;
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
