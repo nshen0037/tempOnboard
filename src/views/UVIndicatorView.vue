@@ -81,6 +81,8 @@
           </div>
         </div>
       </div>
+
+      <NextPageArrow nextRoute="/recommendation" nextPageName="Recommendation" />
     </div>
   </div>
 </template>
@@ -90,6 +92,7 @@ import { ref, nextTick } from 'vue'
 import { getUVByPostcode } from '../api'
 import Chart from 'chart.js/auto'
 import { useStore } from '@/store/store'
+import NextPageArrow from '../components/NextPageArrow.vue'
 
 // UV data interface
 interface UVEntry {
